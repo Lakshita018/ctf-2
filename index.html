@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Login Challenge</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            position: absolute;
+            z-index: 2;
+        }
+
+
+        #hidden-image {
+            position: absolute;
+            width: 300px;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Hidden Image -->
+    <img id="hidden-image" src="img.jpg" alt="Gronsfeld Cipher">
+
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button onclick="checkLogin()">Login</button>
+    </div>
+
+
+    <script>
+        // Store the credentials (hidden in console)
+        console.log("Encoded Credentials: " + btoa("username:password"));
+
+
+        // Detect if .login-container is removed
+        const observer = new MutationObserver(() => {
+            if (!document.querySelector('.login-container')) {
+                document.getElementById('hidden-image').style.display = 'block';
+            }
+        });
+
+
+        observer.observe(document.body, { childList: true, subtree: true });
+    </script>
+
+
+</body>
+</html>
